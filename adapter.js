@@ -56,7 +56,7 @@ async function start(){
 function go(){ungate();
   sb.channel('docs-all').on('postgres_changes',{event:'*',schema:'public',table:'docs'},p=>{const r=p.new&&p.new.col?p.new:p.old;if(!r||!r.col||!loaded[r.col])return;const m=cache[r.col]=cache[r.col]||new Map();if(p.eventType==='DELETE')m.delete(r.id);else m.set(r.id,p.new.data);emit(r.col)}).subscribe();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')Object.keys(loaded).forEach(c=>load(c).catch(()=>{}))});
-  const f=document.querySelector('.rail .foot');if(f)f.innerHTML=`${(user.email||'').replace(/[<>&"]/g,'')}<br><a href="#" onclick="csLogout();return false" style="color:inherit">Cerrar sesión</a>`;
+  const f=document.querySelector('.rail .foot');if(f)f.innerHTML=`${(user.email||'').replace(/[<>&"]/g,'')}<br><a href="#" onclick="csLogout();return false" style="color:inherit">Cerrar sesión</a><br><span style="opacity:.6">Versión 13</span>`;
   readyRes();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
